@@ -24,7 +24,6 @@ import controler.controlerLocal.ChessControlerLocal;
  */
 public class LauncherChessGame {
 
-
 	/**
 	 * @param args
 	 */
