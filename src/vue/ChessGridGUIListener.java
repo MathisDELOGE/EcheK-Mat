@@ -47,6 +47,7 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
     }
 
+    //TODO Gérer les exceptions lorsqu'on déplace une pièce en dehors du plateau
     @Override
     public void mouseReleased(MouseEvent e) {
         if(chessPieceGUI == null) return;
