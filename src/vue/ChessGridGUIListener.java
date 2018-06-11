@@ -9,6 +9,10 @@ import java.util.EventListener;
 
 public class ChessGridGUIListener implements MouseListener, MouseMotionListener {
 
+    public ChessGridGUIListener(ChessGridGUI chessGridGUI, ChessGameControlerModelVue chessGameControler) {
+
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 

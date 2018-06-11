@@ -1,4 +1,6 @@
 package vue;
 
-public class ChessPieceGUI extends JLabel {
+import javax.swing.*;
+
+public class ChessPieceGUI extends JPanel {
 }

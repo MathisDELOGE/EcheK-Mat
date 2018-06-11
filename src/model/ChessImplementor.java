@@ -1,4 +1,4 @@
 package model;
 
-public class ChessImplementor implements ChessGameImplementor {
+public class ChessImplementor extends ChessGameImplementor {
 }
