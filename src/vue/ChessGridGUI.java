@@ -1,4 +1,6 @@
 package vue;
 
-public class ChessGridGUI {
+import javax.swing.*;
+
+public class ChessGridGUI  extends JLayeredPane {
 }
