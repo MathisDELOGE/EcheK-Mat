@@ -38,7 +38,6 @@ public class ChessGridGUI  extends JLayeredPane {
                     square = new ChessSquareGUI(i, j, BoardGameConfig.getBlackSquareColor());
                 }
                 this.add(square);
-
                 map.put((square).getCoord(), square);
             }
         }
