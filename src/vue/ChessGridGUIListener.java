@@ -14,9 +14,7 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
     private final ChessGridGUI chessGridGUI;
     private final ChessGameControlerModelVue ChessGameControlerModelVue;
     private ChessPieceGUI chessPieceGUI;
-    private int xAdjustment;
-    private int yAdjustment;
-    private Component oldParent;
+    private int xAdjustment, yAdjustment, oldY, oldX;
 
     public ChessGridGUIListener(ChessGridGUI chessGridGUI, ChessGameControlerModelVue chessGameControler) {
         this.chessGridGUI = chessGridGUI;
@@ -33,10 +31,12 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         chessPieceGUI = null;
         Component c =  chessGridGUI.findComponentAt(e.getX(), e.getY());
 
+
         if (c instanceof JPanel)
             return;
 
-        oldParent = c;
+        oldY = e.getY();
+        oldX = e.getX();
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
@@ -47,7 +47,6 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
     }
 
-    //TODO Gérer les exceptions lorsqu'on déplace une pièce en dehors du plateau
     @Override
     public void mouseReleased(MouseEvent e) {
         if(chessPieceGUI == null) return;
@@ -65,7 +64,8 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
             parent.add( chessPieceGUI );
         } else
         {
-            oldParent.getParent().add(chessPieceGUI);
+            Container parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
+            parent.add(chessPieceGUI);
         }
         chessPieceGUI.setVisible(true);
     }
