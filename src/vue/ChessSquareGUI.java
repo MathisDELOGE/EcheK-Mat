@@ -15,4 +15,8 @@ public class ChessSquareGUI extends JPanel {
 
         this.setBackground(this.color);
     }
+
+    public Coord getCoord() {
+        return coords;
+    }
 }

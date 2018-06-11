@@ -2,10 +2,13 @@ package vue;
 
 import tools.BoardGameConfig;
 import tools.data.ChessPiecePos;
+import tools.data.Coord;
 import tools.factory.ChessImageProvider;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChessGridGUI  extends JLayeredPane {
     private int ligne = BoardGameConfig.getNbLigne();
@@ -13,12 +16,12 @@ public class ChessGridGUI  extends JLayeredPane {
 
     public ChessGridGUI()
     {
-        JPanel square = new JPanel();
+        ChessSquareGUI square = null;
         ChessPieceGUI chessPieceGUI = null;
         int index;
 
         this.setLayout(new GridLayout(ligne, colonne));
-
+        Map<Coord, ChessSquareGUI> map = new HashMap<Coord, ChessSquareGUI>();
 
         //Mettre en place le quadrillage Noir/Blanc du plateau
         for (int i = 0; i < ligne; i++)
@@ -35,6 +38,8 @@ public class ChessGridGUI  extends JLayeredPane {
                     square = new ChessSquareGUI(i, j, BoardGameConfig.getBlackSquareColor());
                 }
                 this.add(square);
+
+                map.put((square).getCoord(), square);
             }
         }
 
@@ -52,7 +57,7 @@ public class ChessGridGUI  extends JLayeredPane {
                                 )
                         ));
                 index = ChessPiecePos.values()[i].coords[j].getY()*8+ChessPiecePos.values()[i].coords[j].getX();
-                square = (JPanel) this.getComponent(index);
+                square = (ChessSquareGUI) this.getComponent(index);
                 square.add(chessPieceGUI);
             }
         }
