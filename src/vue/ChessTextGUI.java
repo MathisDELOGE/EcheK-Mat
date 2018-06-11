@@ -1,4 +1,7 @@
 package vue;
 
-public class ChessTextGUI {
+
+import java.awt.*;
+
+public class ChessTextGUI extends TextArea {
 }
