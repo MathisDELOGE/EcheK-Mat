@@ -11,4 +11,8 @@ public class ChessPieceGUI extends JLabel {
         super(imageIcon);
         this.couleur = couleur;
     }
+
+    public Couleur getCouleur() {
+        return couleur;
+    }
 }

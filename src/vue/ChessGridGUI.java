@@ -3,6 +3,7 @@ package vue;
 import tools.BoardGameConfig;
 import tools.data.ChessPiecePos;
 import tools.data.Coord;
+import tools.data.Couleur;
 import tools.factory.ChessImageProvider;
 
 import javax.swing.*;
@@ -60,5 +61,19 @@ public class ChessGridGUI  extends JLayeredPane {
                 square.add(chessPieceGUI);
             }
         }
+    }
+
+    public Coord getSquareCoord(int x, int y)
+    {
+        Component c = this.findComponentAt(x, y);
+        ChessSquareGUI square = (ChessSquareGUI) c.getParent();
+        return square.getCoord();
+    }
+
+    public Couleur getCouleur(Coord coord)
+    {
+        Component c = this.findComponentAt(coord.getX(), coord.getY());
+        ChessPieceGUI piece = (ChessPieceGUI) c.getParent();
+        return piece.getCouleur();
     }
 }

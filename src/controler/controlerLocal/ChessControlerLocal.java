@@ -18,6 +18,7 @@ public class ChessControlerLocal implements ChessGameControlerModelVue{
 
     @Override
     public boolean isPlayerOk(Couleur pieceToMoveCouleur) {
+
         return false;
     }
 
