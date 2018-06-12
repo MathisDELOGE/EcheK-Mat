@@ -8,7 +8,10 @@ import tools.data.Couleur;
 import javax.swing.*;
 
 public class ChessControlerLocal implements ChessGameControlerModelVue{
+    private ChessGameModel chessModel;
+
     public ChessControlerLocal(ChessGameModel chessGame) {
+        this.chessModel=chessGame;
     }
 
     @Override
@@ -16,10 +19,14 @@ public class ChessControlerLocal implements ChessGameControlerModelVue{
 
     }
 
+    //Vérification de la couleur récupérée
     @Override
     public boolean isPlayerOk(Couleur pieceToMoveCouleur) {
-
-        return false;
+        boolean resultat;
+        if(pieceToMoveCouleur == this.chessModel.getColorCurrentPlayer()){
+            resultat = true;
+        } else{ resultat = false;}
+        return resultat;
     }
 
     @Override

@@ -63,6 +63,7 @@ public class ChessGridGUI  extends JLayeredPane {
         }
     }
 
+    //Récupération des coordonnées de l'événement
     public Coord getSquareCoord(int x, int y)
     {
         Component c = this.findComponentAt(x, y);
@@ -70,6 +71,7 @@ public class ChessGridGUI  extends JLayeredPane {
         return square.getCoord();
     }
 
+    //Récupération de la couleur selon les coordonnées choisies
     public Couleur getCouleur(Coord coord)
     {
         Component c = this.findComponentAt(coord.getX(), coord.getY());

@@ -1,6 +1,7 @@
 package vue;
 
 import controler.ChessGameControlerModelVue;
+import controler.controlerLocal.ChessControlerLocal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,18 +13,17 @@ import java.util.EventListener;
 public class ChessGridGUIListener implements MouseListener, MouseMotionListener {
 
     private final ChessGridGUI chessGridGUI;
-    private final ChessGameControlerModelVue ChessGameControlerModelVue;
+    private final ChessGameControlerModelVue chessGameControlerModelVue;
     private ChessPieceGUI chessPieceGUI;
     private int xAdjustment, yAdjustment, oldY, oldX;
 
     public ChessGridGUIListener(ChessGridGUI chessGridGUI, ChessGameControlerModelVue chessGameControler) {
         this.chessGridGUI = chessGridGUI;
-        this.ChessGameControlerModelVue = chessGameControler;
+        this.chessGameControlerModelVue = chessGameControler;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
@@ -31,20 +31,20 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         chessPieceGUI = null;
         Component c =  chessGridGUI.findComponentAt(e.getX(), e.getY());
 
+        //vérifie si c instance de chesspiecegui et si c'est son tour de jouer
+        if (c instanceof ChessPieceGUI &&
+                chessGameControlerModelVue.isPlayerOk(((ChessPieceGUI)c).getCouleur())) {
+            oldY = e.getY();
+            oldX = e.getX();
+            Point parentLocation = c.getParent().getLocation();
+            xAdjustment = parentLocation.x - e.getX();
+            yAdjustment = parentLocation.y - e.getY();
 
-        if (c instanceof JPanel)
-            return;
-
-        oldY = e.getY();
-        oldX = e.getX();
-        Point parentLocation = c.getParent().getLocation();
-        xAdjustment = parentLocation.x - e.getX();
-        yAdjustment = parentLocation.y - e.getY();
-
-        chessPieceGUI = (ChessPieceGUI)c;
-        chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-        chessPieceGUI.setSize(chessPieceGUI.getWidth(), chessPieceGUI.getHeight());
-        chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
+            chessPieceGUI = (ChessPieceGUI) c;
+            chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+            chessPieceGUI.setSize(chessPieceGUI.getWidth(), chessPieceGUI.getHeight());
+            chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
+        }
     }
 
     @Override
@@ -62,8 +62,7 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         else if (c instanceof JPanel){
             Container parent = (Container)c;
             parent.add( chessPieceGUI );
-        } else
-        {
+        } else {
             Container parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
             parent.add(chessPieceGUI);
         }

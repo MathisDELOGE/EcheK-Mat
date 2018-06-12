@@ -15,8 +15,7 @@ public class ChessModel implements ChessGameModel {
     }
 
     @Override
-    public Couleur getColorCurrentPlayer() {
-        return colorCurrentPlayer;
+    public Couleur getColorCurrentPlayer() { return colorCurrentPlayer;
     }
 
     @Override
