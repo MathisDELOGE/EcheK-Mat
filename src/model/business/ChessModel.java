@@ -1,5 +1,7 @@
 package model.business;
 
+import model.ChessGameImplementor;
+import model.ChessImplementor;
 import tools.BoardGameConfig;
 import tools.data.ActionType;
 import tools.data.Coord;
@@ -9,9 +11,12 @@ import java.util.List;
 
 public class ChessModel implements ChessGameModel {
     private Couleur colorCurrentPlayer;
+    private ChessGameImplementor chessImplementor;
 
     public ChessModel() {
         colorCurrentPlayer = BoardGameConfig.getBeginColor();
+        chessImplementor = new ChessImplementor();
+        System.out.println(this);
     }
 
     @Override
@@ -41,5 +46,10 @@ public class ChessModel implements ChessGameModel {
     @Override
     public boolean isEnd() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.colorCurrentPlayer.toString();
     }
 }

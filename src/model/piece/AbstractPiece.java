@@ -4,11 +4,18 @@ import tools.data.ActionType;
 import tools.data.Coord;
 import tools.data.Couleur;
 
+import java.util.List;
+
 public abstract class AbstractPiece implements Pieces {
     private Coord coord;
     private Couleur couleur;
     private String name;
     private Coord oldCoord;
+
+    public AbstractPiece(Couleur couleur, Coord coord){
+        this.coord = coord;
+        this.couleur = couleur;
+    }
 
     @Override
     public String toString() {
@@ -56,9 +63,9 @@ public abstract class AbstractPiece implements Pieces {
         return resultat;
     }
 
-    //todo : qu'est ce que c'est cette merde ?
     @Override
     public boolean isAlgoMoveOk(int xFinal, int yFinal, ActionType type) {
+            isAlgoMoveOk(xFinal, yFinal);
             return false;
     }
 
@@ -81,4 +88,10 @@ public abstract class AbstractPiece implements Pieces {
         }
         return resultat;
     }
+
+    @Override
+    public abstract boolean isAlgoMoveOk(int xFinal, int yFinal);
+
+    @Override
+    public abstract List<Coord> getMoveItinerary(int xFinal, int yFinal);
 }
