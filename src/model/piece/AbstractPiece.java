@@ -1,29 +1,29 @@
 package model.piece;
 
 import tools.data.ActionType;
+import tools.data.Coord;
 import tools.data.Couleur;
 
 public abstract class AbstractPiece implements Pieces {
-    private int x,y;
+    private Coord coord;
     private Couleur couleur;
     private String name;
+    private Coord oldCoord;
 
     @Override
     public String toString() {
-        this.x = getX();
-        this.y = getX();
         this.name = getName();
-        return (this.x+this.y+this.name);
+        return (this.name+","+this.coord.getX()+","+this.coord.getY());
     }
 
     @Override
     public int getX() {
-        return this.x;
-    }
+        return this.coord.getX();
+}
 
     @Override
     public int getY() {
-        return this.y;
+        return this.coord.getY();
     }
 
     @Override
@@ -38,26 +38,47 @@ public abstract class AbstractPiece implements Pieces {
 
     @Override
     public ActionType doMove(int xFinal, int yFinal) {
-        return null;
+        this.oldCoord.setCoord(this.coord.getX(),this.coord.getY());
+        this.coord.setX(xFinal);
+        this.coord.setY(yFinal);
+        return ActionType.MOVE; //temporaire - non défini
     }
 
     @Override
     public boolean catchPiece() {
-        return false;
+        boolean resultat = false;
+        this.oldCoord.setCoord(this.coord.getX(),this.coord.getY());
+        this.coord.setX(-1);
+        this.coord.setY(-1);
+        if(coord.getX()== -1 && coord.getY()==-1){
+            resultat = true;
+        }
+        return resultat;
     }
 
+    //todo : qu'est ce que c'est cette merde ?
     @Override
     public boolean isAlgoMoveOk(int xFinal, int yFinal, ActionType type) {
-        return false;
+            return false;
     }
 
     @Override
     public boolean undoLastMove() {
-        return false;
+        boolean resultat=false;
+        this.coord.setCoord(this.oldCoord.getX(),this.oldCoord.getY());
+        if(this.coord.equals(this.oldCoord)){
+            resultat = true;
+        }
+        return resultat;
     }
 
     @Override
     public boolean undoLastCatch() {
-        return false;
+        boolean resultat=false;
+        this.coord.setCoord(this.oldCoord.getX(),this.oldCoord.getY());
+        if(this.coord.equals(this.oldCoord)){
+            resultat = true;
+        }
+        return resultat;
     }
 }
