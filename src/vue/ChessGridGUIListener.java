@@ -81,8 +81,9 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (e.getSource() == null) return;
-        chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+        if (chessPieceGUI != null) {
+            chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+        }
     }
 
     @Override
