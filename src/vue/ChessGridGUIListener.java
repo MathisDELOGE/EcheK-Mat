@@ -2,6 +2,7 @@ package vue;
 
 import controler.ChessGameControlerModelVue;
 import controler.controlerLocal.ChessControlerLocal;
+import tools.data.Coord;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,24 +50,30 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(chessPieceGUI == null) return;
+        Coord debCoord = null, finCoord = null;
 
-        chessPieceGUI.setVisible(false);
-        Component c =  chessGridGUI.findComponentAt(e.getX(), e.getY());
+        if(chessPieceGUI != null) {
+            chessPieceGUI.setVisible(false);
+            Component c = chessGridGUI.findComponentAt(e.getX(), e.getY());
 
-        if (c instanceof JLabel){
-            Container parent = c.getParent();
-            parent.remove(0);
-            parent.add( chessPieceGUI );
+            if (c instanceof JLabel) {
+                Container parent = c.getParent();
+                parent.remove(0);
+                parent.add(chessPieceGUI);
+            } else if (c instanceof JPanel) {
+                Container parent = (Container) c;
+                parent.add(chessPieceGUI);
+            } else {
+                Container parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
+                parent.add(chessPieceGUI);
+            }
+            chessPieceGUI.setVisible(true);
+            //TODO : pixels en cases
+            //transmission du move du listener au controler
+            debCoord = new Coord(oldX, oldY);
+            finCoord = new Coord(e.getX(), e.getY());
+            chessGameControlerModelVue.actionsWhenPieceIsMovedOnGUI(debCoord, finCoord);
         }
-        else if (c instanceof JPanel){
-            Container parent = (Container)c;
-            parent.add( chessPieceGUI );
-        } else {
-            Container parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
-            parent.add(chessPieceGUI);
-        }
-        chessPieceGUI.setVisible(true);
     }
 
     @Override
