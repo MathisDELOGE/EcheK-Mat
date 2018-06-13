@@ -40,14 +40,19 @@ public class ChessImplementor implements ChessGameImplementor {
     }
     //todo : parcourir les pièces
     public Pieces getPieceAtPos(int x, int y){
+        boolean resultat = false;
         Pieces res = null;
         for (Pieces p: listePiecesBlanches) {
-            if(p.getX() == x && p.getY() == y)
+            if(p.getX() == x && p.getY() == y) {
                 res = p;
+                resultat = true;
+            }
         }
-        for (Pieces p: listePiecesNoires) {
-            if(p.getX() == x && p.getY() == y)
-                res = p;
+        if(resultat == false) {
+            for (Pieces p : listePiecesNoires) {
+                if (p.getX() == x && p.getY() == y)
+                    res = p;
+            }
         }
         return res;
     }
