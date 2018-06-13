@@ -37,6 +37,7 @@ public class ChessModel implements ChessGameModel {
     public ActionType move(int xInit, int yInit, int xFinal, int yFinal) {
         ActionType resultat = chessImplementor.move(xInit,yInit,xFinal,yFinal);
         System.out.println("Deplacement de "+xInit+","+yInit+" à "+xFinal+","+yFinal);
+        System.out.println("Mouvement : "+ resultat);
         return resultat;
     }
 

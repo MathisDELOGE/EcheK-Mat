@@ -45,7 +45,7 @@ public abstract class AbstractPiece implements Pieces {
 
     @Override
     public ActionType doMove(int xFinal, int yFinal) {
-        this.oldCoord.setCoord(this.coord.getX(),this.coord.getY());
+        this.oldCoord = new Coord(this.coord.getX(),this.coord.getY());
         this.coord.setX(xFinal);
         this.coord.setY(yFinal);
         return ActionType.MOVE; //temporaire - non défini

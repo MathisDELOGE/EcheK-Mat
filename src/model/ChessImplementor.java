@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChessImplementor extends ChessGameImplementor {
+public class ChessImplementor implements ChessGameImplementor {
     private List<Pieces> listePiecesNoires = null, listePiecesBlanches = null;
 
     public ChessImplementor(){
@@ -29,13 +29,26 @@ public class ChessImplementor extends ChessGameImplementor {
     }
 
     public ActionType move(int xInit, int yInit, int xFinal, int yFinal) {
-
+        ActionType res = ActionType.ILLEGAL;
+        Pieces movePiece = getPieceAtPos(xInit, yInit);
+        if (movePiece.isAlgoMoveOk(xFinal, yFinal))
+        {
+            res = ActionType.MOVE;
+            movePiece.doMove(xFinal, yFinal);
+        }
+        return res;
     }
     //todo : parcourir les pièces
     public Pieces getPieceAtPos(int x, int y){
-        for (:
-             ) {
-
+        Pieces res = null;
+        for (Pieces p: listePiecesBlanches) {
+            if(p.getX() == x && p.getY() == y)
+                res = p;
         }
+        for (Pieces p: listePiecesNoires) {
+            if(p.getX() == x && p.getY() == y)
+                res = p;
+        }
+        return res;
     }
 }

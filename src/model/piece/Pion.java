@@ -14,10 +14,10 @@ public class Pion extends PremierMouvement  {
     @Override
     public boolean isAlgoMoveOk(int xFinal, int yFinal) {
         boolean resultat=false;
-        if(this.getX()== xFinal && this.getY() < yFinal) {
-            if(yFinal <= (this.getY()+2) && !this.hasMoved()){
-                resultat = true;
-            }else if(yFinal <= (this.getY()+1)){
+        if(this.getX() == xFinal && this.getY() > yFinal) {
+            System.out.println("blabla");
+            if((Math.abs(this.getY()-yFinal) == 2 && !this.hasMoved()) || (Math.abs(this.getY()-yFinal) == 1)){
+                System.out.println("yes");
                 resultat = true;
             }
         }
