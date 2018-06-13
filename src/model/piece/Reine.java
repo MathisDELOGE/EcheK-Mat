@@ -16,7 +16,7 @@ public class Reine extends AbstractPiece {
         boolean res = false;
         int deltaX = Math.abs(xFinal-this.getX());
         int deltaY = Math.abs(yFinal-this.getY());
-        if ((deltaX != 0 && deltaY != 0 && deltaX == deltaY) || (xFinal == this.getX() && yFinal != this.getY()) || (yFinal == this.getX() && xFinal != this.getX()));
+        if ((deltaX != 0 && deltaY != 0 && deltaX == deltaY) || (xFinal == this.getX() && yFinal != this.getY()) || (yFinal == this.getX() && xFinal != this.getX()))
             if (xFinal >= 0 && xFinal <= BoardGameConfig.getNbColonne() && yFinal >= 0 && yFinal <= BoardGameConfig.getNbLigne())
                 res = true;
         return res;

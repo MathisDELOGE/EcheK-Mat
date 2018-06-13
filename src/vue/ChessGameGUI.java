@@ -54,7 +54,7 @@ public interface ChessGameGUI {
 	 * la pièce est replacée à ses coordonnées d'origine 
 	 *  
 	 * */
-	public void undoMovePiece(Coord pieceToMoveInitCoord) ;
+	public void undoMovePiece(Coord pieceToMoveInitCoord);
 
 	/**
 	 * @return promotionType

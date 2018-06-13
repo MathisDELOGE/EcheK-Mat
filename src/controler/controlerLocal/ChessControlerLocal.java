@@ -2,20 +2,25 @@ package controler.controlerLocal;
 
 import controler.ChessGameControlerModelVue;
 import model.business.ChessGameModel;
+import tools.data.ActionType;
 import tools.data.Coord;
 import tools.data.Couleur;
+import vue.ChessGameGUI;
+import vue.ChessGridGUI;
 
 import javax.swing.*;
 
 public class ChessControlerLocal implements ChessGameControlerModelVue{
     private ChessGameModel chessModel;
+    private ChessGameGUI chessGridGUI;
 
     public ChessControlerLocal(ChessGameModel chessGame) {
+        this.chessGridGUI = new ChessGridGUI();
         this.chessModel=chessGame;
     }
 
     @Override
-    public void setGridPanel(JLayeredPane panel) {
+    public void setGridPanel(ChessGameGUI panel) {
 
     }
 
@@ -31,7 +36,7 @@ public class ChessControlerLocal implements ChessGameControlerModelVue{
 
     @Override
     public void actionsWhenPieceIsSelectedOnGUI(Coord pieceToMoveCoord, Couleur pieceToMoveCouleur) {
-
+        chessGridGUI.setPieceToMove(pieceToMoveCoord);
     }
 
     @Override
@@ -42,7 +47,12 @@ public class ChessControlerLocal implements ChessGameControlerModelVue{
         xFin = targetCoord.getX();
         yFin = targetCoord.getY();
 
-        chessModel.move(xDeb,yDeb,xFin,yFin);
+        if (chessModel.move(xDeb,yDeb,xFin,yFin) == ActionType.ILLEGAL)
+            chessGridGUI.undoMovePiece(targetCoord);
+    }
 
+
+    public void setChessGridGUI(ChessGameGUI chessGridGUI) {
+        this.chessGridGUI = chessGridGUI;
     }
 }

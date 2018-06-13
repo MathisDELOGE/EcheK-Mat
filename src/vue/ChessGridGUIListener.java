@@ -14,14 +14,14 @@ import java.util.EventListener;
 public class ChessGridGUIListener implements MouseListener, MouseMotionListener {
 
     private final ChessGridGUI chessGridGUI;
-    private final ChessGameControlerModelVue chessGameControlerModelVue;
+    private final ChessControlerLocal chessGameControlerModelVue;
     private ChessPieceGUI chessPieceGUI;
     private int xAdjustment, yAdjustment, oldY, oldX;
     private Coord squareDest, squareSrc;
 
     public ChessGridGUIListener(ChessGridGUI chessGridGUI, ChessGameControlerModelVue chessGameControler) {
         this.chessGridGUI = chessGridGUI;
-        this.chessGameControlerModelVue = chessGameControler;
+        this.chessGameControlerModelVue = (ChessControlerLocal) chessGameControler;
     }
 
     @Override
@@ -30,6 +30,7 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
 
     @Override
     public void mousePressed(MouseEvent e) {
+
         chessPieceGUI = null;
         Component c =  chessGridGUI.findComponentAt(e.getX(), e.getY());
         Component parent = null;
@@ -45,11 +46,14 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
             parent = c.getParent();
 
             chessPieceGUI = (ChessPieceGUI) c;
+            ChessSquareGUI caseSquare = (ChessSquareGUI) parent;
+            squareSrc = new Coord(caseSquare.getCoord().getX(),caseSquare.getCoord().getY());
+            chessGameControlerModelVue.actionsWhenPieceIsSelectedOnGUI(squareSrc, chessPieceGUI.getCouleur());
             chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
             chessPieceGUI.setSize(chessPieceGUI.getWidth(), chessPieceGUI.getHeight());
             chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
-            ChessSquareGUI caseSquare = (ChessSquareGUI) parent;
-            squareSrc = new Coord(caseSquare.getCoord().getX(),caseSquare.getCoord().getY());
+
+
         }
     }
 
@@ -69,13 +73,13 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
             } else {
                 parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
             }
-
             parent.removeAll();
-            parent.add(chessPieceGUI);
 
+            parent.add(chessPieceGUI);
             chessPieceGUI.setVisible(true);
+
             //transmission du move du listener au controler + transformation en case
-            ChessSquareGUI caseSquare = (ChessSquareGUI)parent;
+            ChessSquareGUI caseSquare = (ChessSquareGUI) parent;
             this.squareDest = new Coord(caseSquare.getCoord().getX(),caseSquare.getCoord().getY());
             chessGameControlerModelVue.actionsWhenPieceIsMovedOnGUI(squareSrc,squareDest);
         }

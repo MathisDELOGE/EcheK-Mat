@@ -9,21 +9,25 @@ import tools.factory.ChessImageProvider;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class ChessGridGUI  extends JLayeredPane {
+public class ChessGridGUI  extends JLayeredPane implements ChessGameGUI {
     private int ligne = BoardGameConfig.getNbLigne();
     private int colonne = BoardGameConfig.getNbColonne();
+    private Map<Coord, ChessSquareGUI> map;
+    private ChessPieceGUI chessPieceGUI;
+    private ChessSquareGUI chessSquareGUI;
 
-    public ChessGridGUI()
+    public ChessGridGUI ()
     {
         ChessSquareGUI square = null;
         ChessPieceGUI chessPieceGUI = null;
         int index;
 
         this.setLayout(new GridLayout(ligne, colonne));
-        Map<Coord, ChessSquareGUI> map = new HashMap<Coord, ChessSquareGUI>();
 
+        map = new HashMap<Coord, ChessSquareGUI>();
         //Mettre en place le quadrillage Noir/Blanc du plateau
         for (int i = 0; i < ligne; i++)
         {
@@ -39,7 +43,7 @@ public class ChessGridGUI  extends JLayeredPane {
                     square = new ChessSquareGUI(i, j, BoardGameConfig.getBlackSquareColor());
                 }
                 this.add(square);
-                map.put((square).getCoord(), square);
+                map.put(square.getCoord(), square);
             }
         }
 
@@ -77,5 +81,40 @@ public class ChessGridGUI  extends JLayeredPane {
         Component c = this.findComponentAt(coord.getX(), coord.getY());
         ChessPieceGUI piece = (ChessPieceGUI) c.getParent();
         return piece.getCouleur();
+    }
+
+    @Override
+    public void setPieceToMove(Coord coord) {
+        chessSquareGUI = map.get(coord);
+        chessPieceGUI = (ChessPieceGUI) chessSquareGUI.getComponent(0);
+    }
+
+    @Override
+    public void resetLight(List<Coord> coords, boolean isLight) {
+
+    }
+
+    @Override
+    public void movePiece(Coord targetCoord) {
+        chessSquareGUI = map.get(targetCoord);
+        chessSquareGUI.removeAll();
+        chessSquareGUI.add(chessPieceGUI);
+    }
+
+    @Override
+    public void undoMovePiece(Coord pieceToMoveInitCoord) {
+        chessSquareGUI = map.get(pieceToMoveInitCoord);
+        chessSquareGUI.removeAll();
+        chessSquareGUI.add(chessPieceGUI);
+    }
+
+    @Override
+    public String getPromotionType() {
+        return null;
+    }
+
+    @Override
+    public void promotePiece(Coord coord, String promotionType) {
+
     }
 }

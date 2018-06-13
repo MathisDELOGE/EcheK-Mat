@@ -16,7 +16,7 @@ public class Fou extends AbstractPiece {
         boolean res = false;
         int deltaX = Math.abs(xFinal-this.getX());
         int deltaY = Math.abs(yFinal-this.getY());
-        if (deltaX != 0 && deltaY != 0 && deltaX == deltaY);
+        if (deltaX != 0 && deltaY != 0 && deltaX == deltaY)
             if (xFinal >= 0 && xFinal <= BoardGameConfig.getNbColonne() && yFinal >= 0 && yFinal <= BoardGameConfig.getNbLigne())
                 res = true;
         return res;

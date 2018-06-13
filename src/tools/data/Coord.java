@@ -53,10 +53,14 @@ public class Coord implements Serializable {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 
-	public boolean equals(Coord coord) {
+	public boolean equals(Object coord) {
 		boolean resultat = false;
-		if(this.getX()==coord.getX() && this.getY()==coord.getY())
-			resultat = true;
+		if(coord instanceof Coord) {
+			Coord moncoord = (Coord) coord;
+			if (x == moncoord.x && y == moncoord.y) {
+				resultat = true;
+			}
+		}
 		return resultat;
 	}
 
