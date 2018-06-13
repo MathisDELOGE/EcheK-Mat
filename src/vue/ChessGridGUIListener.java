@@ -32,7 +32,7 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
     public void mousePressed(MouseEvent e) {
         chessPieceGUI = null;
         Component c =  chessGridGUI.findComponentAt(e.getX(), e.getY());
-        Component parent;
+        Component parent = null;
 
         //vérifie si c instance de chesspiecegui et si c'est son tour de jouer
         if (c instanceof ChessPieceGUI &&
@@ -42,22 +42,16 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
             Point parentLocation = c.getParent().getLocation();
             xAdjustment = parentLocation.x - e.getX();
             yAdjustment = parentLocation.y - e.getY();
+            parent = c.getParent();
 
             chessPieceGUI = (ChessPieceGUI) c;
             chessPieceGUI.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
             chessPieceGUI.setSize(chessPieceGUI.getWidth(), chessPieceGUI.getHeight());
             chessGridGUI.add(chessPieceGUI, JLayeredPane.DRAG_LAYER);
-        }
-        if (c instanceof JLabel) {
-                parent = c.getParent();
-            } else if (c instanceof JPanel) {
-                parent = (Container) c;
-            } else {
-                parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
-            }
-            ChessSquareGUI caseSquare = (ChessSquareGUI)parent;
+            ChessSquareGUI caseSquare = (ChessSquareGUI) parent;
             squareSrc = new Coord(caseSquare.getCoord().getX(),caseSquare.getCoord().getY());
         }
+    }
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -66,21 +60,23 @@ public class ChessGridGUIListener implements MouseListener, MouseMotionListener 
         if(chessPieceGUI != null) {
             chessPieceGUI.setVisible(false);
             Component c = chessGridGUI.findComponentAt(e.getX(), e.getY());
+
             //Au relâchement : retrouver le parent (la case) avec pièce ou non
             if (c instanceof JLabel) {
                 parent = c.getParent();
-                parent.remove(0);
             } else if (c instanceof JPanel) {
                 parent = (Container) c;
             } else {
                 parent = (Container) chessGridGUI.findComponentAt(oldX, oldY);
             }
+
             parent.removeAll();
             parent.add(chessPieceGUI);
+
             chessPieceGUI.setVisible(true);
             //transmission du move du listener au controler + transformation en case
             ChessSquareGUI caseSquare = (ChessSquareGUI)parent;
-            squareDest = new Coord(caseSquare.getX(),caseSquare.getY());
+            this.squareDest = new Coord(caseSquare.getCoord().getX(),caseSquare.getCoord().getY());
             chessGameControlerModelVue.actionsWhenPieceIsMovedOnGUI(squareSrc,squareDest);
         }
     }

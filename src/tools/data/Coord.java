@@ -22,8 +22,10 @@ public class Coord implements Serializable {
 	 * @param y
 	 */
 	public Coord(int x, int y) {
-		this.x = x; 
-		this.y = y;
+		if(x>=0 && x<=BoardGameConfig.getNbColonne())
+			this.x = x;
+		if(y>=0 && y<=BoardGameConfig.getNbLigne())
+			this.y = y;
 	}
 
 	/* (non-Javadoc)
