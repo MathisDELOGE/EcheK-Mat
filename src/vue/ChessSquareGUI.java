@@ -10,7 +10,7 @@ public class ChessSquareGUI extends JPanel {
     private Color color;
 
     public ChessSquareGUI(int x, int y, Color color) {
-        coords = new Coord(x,y);
+        coords = new Coord(y,x);
         this.color = color;
 
         this.setBackground(this.color);

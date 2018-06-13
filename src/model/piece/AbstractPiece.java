@@ -94,4 +94,6 @@ public abstract class AbstractPiece implements Pieces {
 
     @Override
     public abstract List<Coord> getMoveItinerary(int xFinal, int yFinal);
+
+
 }
