@@ -1,5 +1,6 @@
 package model.piece;
 
+import tools.BoardGameConfig;
 import tools.data.Coord;
 import tools.data.Couleur;
 
@@ -12,7 +13,13 @@ public class Reine extends AbstractPiece {
 
     @Override
     public boolean isAlgoMoveOk(int xFinal, int yFinal) {
-        return false;
+        boolean res = false;
+        int deltaX = Math.abs(xFinal-this.getX());
+        int deltaY = Math.abs(yFinal-this.getY());
+        if ((deltaX != 0 && deltaY != 0 && deltaX == deltaY) || (xFinal == this.getX() && yFinal != this.getY()) || (yFinal == this.getX() && xFinal != this.getX()));
+            if (xFinal >= 0 && xFinal <= BoardGameConfig.getNbColonne() && yFinal >= 0 && yFinal <= BoardGameConfig.getNbLigne())
+                res = true;
+        return res;
     }
 
     @Override
