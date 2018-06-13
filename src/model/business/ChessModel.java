@@ -33,11 +33,11 @@ public class ChessModel implements ChessGameModel {
         return null;
     }
 
-    //TODO : reprendre le action type
     @Override
     public ActionType move(int xInit, int yInit, int xFinal, int yFinal) {
+        ActionType resultat = chessImplementor.move(xInit,yInit,xFinal,yFinal);
         System.out.println("Deplacement de "+xInit+","+yInit+" à "+xFinal+","+yFinal);
-        return ActionType.MOVE;
+        return resultat;
     }
 
     @Override
